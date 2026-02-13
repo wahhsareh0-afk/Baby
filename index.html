@@ -6,6 +6,10 @@
 <title>Princess Valentine 👑💗</title>
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Georgia', serif;
@@ -25,6 +29,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 20px;
 }
 
 input {
@@ -33,6 +38,8 @@ input {
     border: none;
     margin: 10px;
     font-size: 16px;
+    width: 250px;
+    max-width: 90%;
 }
 
 button {
@@ -47,30 +54,34 @@ button {
 }
 
 button:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 /* MAIN CONTENT */
 h1 {
     margin-top: 40px;
     color: #d63384;
-    font-size: 40px;
+    font-size: 38px;
     text-shadow: 0 0 15px white;
+    padding: 0 15px;
 }
 
 img {
-    width: 350px;
-    height: 350px;
+    width: 90%;
+    max-width: 350px;
+    aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 0 40px hotpink;
     margin-top: 20px;
 }
 
+/* LETTER */
 .letter {
+    width: 90%;
     max-width: 800px;
     margin: 40px auto;
-    padding: 30px;
+    padding: 25px;
     background: white;
     border-radius: 25px;
     box-shadow: 0 20px 50px rgba(255, 0, 150, 0.2);
@@ -90,21 +101,32 @@ img {
 }
 
 @keyframes floatUp {
-    0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-110vh) scale(1.5);
-        opacity: 0;
-    }
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
 }
 
 #finalQuestion {
     display: none;
-    margin-top: 30px;
+    margin: 30px 20px;
     font-size: 22px;
     color: #d63384;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .letter {
+        font-size: 16px;
+        padding: 20px;
+    }
+
+    #finalQuestion {
+        font-size: 18px;
+    }
 }
 </style>
 </head>
@@ -119,7 +141,7 @@ img {
 </div>
 
 <!-- MAIN CONTENT -->
-<h1>Happy Valentine's Day, My King 👑🤍</h1>
+<h1>Happy Valentine’s Day 🤍</h1>
 <img src="baby.jpg" alt="My Love">
 
 <div class="letter" id="typedLetter"></div>
@@ -128,16 +150,14 @@ img {
     💖 Will you stay with me forever? 💖
 </div>
 
-<audio id="bgMusic" src="music.mp3" loop></audio>
-
 <script>
+
 const correctPassword = "2206";
 
 function checkPassword() {
     const input = document.getElementById("passwordInput").value.trim();
     if (input === correctPassword) {
         document.getElementById("passwordScreen").style.display = "none";
-        document.getElementById("bgMusic").play();
         startTyping();
         setInterval(createHeart, 300);
     } else {
@@ -145,9 +165,7 @@ function checkPassword() {
     }
 }
 
-const letterText = `My Love,
-
-Happy Valentine’s Day 🤍
+const letterText = `Happy Valentine’s Day 🤍
 
 Today is a special day, but honestly… every day with you feels special to me. Even though we are far from each other, my heart always feels close to yours. No distance, no time zone, nothing can change how much I love you.
 
@@ -181,7 +199,8 @@ let i = 0;
 
 function startTyping() {
     if (i < letterText.length) {
-        document.getElementById("typedLetter").innerHTML += letterText.charAt(i);
+        document.getElementById("typedLetter").innerHTML += 
+            letterText.charAt(i) === "\n" ? "<br>" : letterText.charAt(i);
         i++;
         setTimeout(startTyping, 35);
     } else {
@@ -200,11 +219,10 @@ function createHeart() {
     heart.style.fontSize = Math.random() * 25 + 20 + "px";
 
     document.body.appendChild(heart);
-
     setTimeout(() => heart.remove(), 5000);
 }
+
 </script>
 
 </body>
 </html>
-
